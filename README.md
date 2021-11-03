@@ -56,4 +56,10 @@ python examples/pipeline/demo/pipeline-upload.py -b /fate
 
 More details can be found [here](https://github.com/FederatedAI/FATE/blob/master/examples/pipeline/README.rst).
 
+## Bind host directories with the Docker container
+
+Move to the root directory of the [FATE repository](https://github.com/FederatedAI/FATE) and run the following command in order to bind the directories `/examples` and `/python` to the respective Docker container ones.
+
+```bash
+docker run -p 8080:8080 -d --name fate --mount type=bind,source="$(pwd)/examples,target=/fate/examples" --mount type=bind,source="$(pwd)/python,target=/fate/python" fate:1.6.1
 ```
