@@ -37,6 +37,23 @@ docker exec -t -i ${CONTAINER_ID} bash
 To conveniently interact with FATE, it is recommended to also install [FATE-Client](https://github.com/FederatedAI/FATE/blob/master/python/fate_client) and [FATE-Test](https://github.com/FederatedAI/FATE/blob/master/python/fate_test) inside the container (through the new shell created in the previous code block).
 
 ```bash
-pip install fate-client
-pip install fate-test
+pip install fate-client fate-test
+```
+
+## Setup a Pipeline FATE job
+
+Provide server ip/port information of deployed FATE-Flow.
+
+```bash
+pipeline init --ip 127.0.0.1 --port 9380
+```
+
+Upload some data with FATE-Pipeline.
+
+```bash
+python examples/pipeline/demo/pipeline-upload.py -b /fate
+```
+
+More details can be found [here](https://github.com/FederatedAI/FATE/blob/master/examples/pipeline/README.rst).
+
 ```
