@@ -1,4 +1,4 @@
-#
+
 #  Copyright 2019 The FATE Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,8 +25,10 @@ from pipeline.component import Reader
 from pipeline.interface import Data
 from pipeline.runtime.entity import JobParameters
 from pipeline.utils.tools import load_job_config
+import os
+import pandas as pd
 
-def main(config="../../config.yaml", namespace=""):
+def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
     # obtain config
     if isinstance(config, str):
         config = load_job_config(config)
@@ -126,7 +128,7 @@ def main(config="../../config.yaml", namespace=""):
 
     # compile pipeline once finished adding modules, this step will form conf and dsl files for running job
     pipeline.compile()
-
+   
     # fit model
     job_parameters = JobParameters(backend=backend, work_mode=work_mode)
     pipeline.fit(job_parameters)
@@ -134,10 +136,27 @@ def main(config="../../config.yaml", namespace=""):
     import json
     print (json.dumps(pipeline.get_component("hetero_lr_0").get_summary(), indent=4))
 
-
     # clean data predict
     # deploy required components
     pipeline.deploy_component([dataio_0, intersection_0, hetero_lr_0])
+    
+    # Compute the Attack Success rate
+    # First we download the predictions
+    train_job_id = pipeline.get_train_job_id()
+    os.system(f"flow component output-data -j {train_job_id} -r guest -p 10000 -cpn hetero_lr_0 --output-path ./")
+    
+    # Load in the data
+    df = pd.read_csv(f"job_{train_job_id}_hetero_lr_0_guest_10000_output_data/data.csv", index_col=False)
+  
+    # compute the success rate
+    success_rate = (df[df['id'].isin(poisoned_ids)]['predict_result'] == 1).mean()
+    
+    # Compute the poisoning percentage
+    poisoning_percentage = len(poisoned_ids) / df.shape[0]
+     
+    # Keep track of the results so far
+    with open("results.txt", "a+") as f:
+      f.write(f"{poisoning_percentage},{success_rate}\n")
 
     # initiate predict pipeline
     predict_pipeline = PipeLine()
@@ -167,6 +186,9 @@ def main(config="../../config.yaml", namespace=""):
 
     # rogue data predict
     pipeline.deploy_component([dataio_0, intersection_0, hetero_lr_0])
+
+    print(dir(pipeline))
+    exit(0)
 
     # initiate predict pipeline
     predict_rogue_pipeline = PipeLine()
