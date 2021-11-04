@@ -9,7 +9,7 @@ In order to slightly reduce the possibility of encountering problems we are goin
 We suggest to use FATE version `1.6.1`, for which we provide the following mirror download.
 
 ```
-wget --no-check-certificate https://docs.google.com/uc?export=download&id=1CynV5GbChwL4U-EvWXjgzsREQiT--jSj -O docker_standalone_fate_1.6.1.tar.gz
+wget http://gasparini.cloud/FATE/docker_standalone_fate_1.6.1.tar.gz
 ```
 
 Other versions can be downloaded from the original repository replacing `${version}` below with the real version you want to use.
