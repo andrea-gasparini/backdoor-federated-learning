@@ -187,9 +187,6 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
     # rogue data predict
     pipeline.deploy_component([dataio_0, intersection_0, hetero_lr_0])
 
-    print(dir(pipeline))
-    exit(0)
-
     # initiate predict pipeline
     predict_rogue_pipeline = PipeLine()
 
