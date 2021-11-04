@@ -9,7 +9,7 @@ In order to slightly reduce the possibility of encountering problems we are goin
 We suggest to use FATE version `1.6.1`, for which we provide the following mirror download.
 
 ```
-wget --no-check-certificate https://docs.google.com/uc?export=download&id=1CynV5GbChwL4U-EvWXjgzsREQiT--jSj -O docker_standalone_fate_1.6.1.tar.gz
+wget http://gasparini.cloud/FATE/docker_standalone_fate_1.6.1.tar.gz
 ```
 
 Other versions can be downloaded from the original repository replacing `${version}` below with the real version you want to use.
@@ -20,6 +20,7 @@ wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/docker_standalon
 ```
 
 Once we have the docker archive file we can proceed with the actual installation.
+Note: Before running the following commands be sure to be a root user or to follow [this guide](https://docs.docker.com/engine/install/linux-postinstall/) beforehand.
 
 ```bash
 tar -xzvf docker_standalone_fate_${version}.tar.gz
