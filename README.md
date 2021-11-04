@@ -13,7 +13,7 @@ wget --no-check-certificate https://docs.google.com/uc?export=download&id=1CynV5
 ```
 
 Other versions can be downloaded from the original repository replacing `${version}` below with the real version you want to use.
-Note that this option could take a lot of time.
+Note: This option could take a lot of time (download is from China), so this is not recommended.
 
 ```bash
 wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/docker_standalone_fate_${version}.tar.gz
