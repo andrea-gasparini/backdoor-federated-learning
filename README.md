@@ -20,6 +20,7 @@ wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/docker_standalon
 ```
 
 Once we have the docker archive file we can proceed with the actual installation.
+Note: Before running the following commands be sure to be a root user or to follow [this guide](https://docs.docker.com/engine/install/linux-postinstall/) beforehand.
 
 ```bash
 tar -xzvf docker_standalone_fate_${version}.tar.gz
