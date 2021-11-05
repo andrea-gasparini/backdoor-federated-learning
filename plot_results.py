@@ -14,4 +14,4 @@ plt.xlabel("Poisoning percentage")
 plt.show()
 
 # Save the figure
-plt.savefig('result_graph.png', dpi=100)
+# plt.savefig('result_graph.png', dpi=100)
