@@ -64,7 +64,7 @@ def main(base_dir: str, rogue_filename: str = ""):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("PIPELINE DEMO")
+    parser = argparse.ArgumentParser("PIPELINE UPLOAD")
     parser.add_argument("--base", "-b", type=str,
                         help="path to directory that contains examples/data")
 
