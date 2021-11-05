@@ -65,13 +65,15 @@ pipeline init --ip 127.0.0.1 --port 9380
 
 ## Usage
 
-In order to run a single experiment you can run the `run_experiment.py` script, specifying the poison percentage with the `--poison-percentage` option.
+The following usage examples are supposed to be executed from the docker container shell, inside the `/fate/backdoor-attack` directory.
+
+In order to run a single experiment you can execute the `run_experiment.py` script, specifying the poison percentage with the `--poison-percentage` option.
 
 ```bash
 python src/run_experiment.py --poison-percentage 0.5
 ```
 
-To run multiple experiments and reproduce the results shown in the [report](report/FATE_attack.pdf) you can simply run the `run_experiment.py` script without any argument.
+To run multiple experiments and reproduce the results shown in the [report](report/FATE_attack.pdf) you can simply execute the `run_experiment.py` script without any argument.
 
 ```bash
 python src/run_experiment.py
