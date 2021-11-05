@@ -20,52 +20,46 @@ import argparse
 from pipeline.backend.config import Backend, WorkMode
 from pipeline.backend.pipeline import PipeLine
 
-# path to data
-# default fate installation path
+# Default fate installation path
 BASE_DIR = "/fate"
 
-def main(base_dir: str, rogue_filename: str):
-    # parties config
+def main(base_dir: str, rogue_filename: str = ""):
+    
+    # Setup the configuration
     guest = 9999
-    # 0 for eggroll, 1 for spark
     backend = Backend.EGGROLL
-    # 0 for standalone, 1 for cluster
     work_mode = WorkMode.STANDALONE
-    # use the work mode below for cluster deployment
-    # work_mode = WorkMode.CLUSTER
-
-    # partition for data storage
     partition = 4
-
+    
+    # Setup the path to the data directory
     data_dir = os.path.join(base_dir, "examples", "data")
 
-    # table name and namespace, used in FATE job configuration
+    # Setup the data upload configuration to be used by the FATE jobs
     dense_data = {"name": "breast_hetero_guest", "namespace": f"experiment"}
     tag_data = {"name": "breast_hetero_host", "namespace": f"experiment"}
 
+    # Initialize and setup the pipeline
     pipeline_upload = PipeLine().set_initiator(role="guest", party_id=guest).set_roles(guest=guest)
-    # add upload data info
-    # path to csv file(s) to be uploaded, modify to upload designated data
-    # This is an example for standalone version. For cluster version, you will need to upload your data
-    # on each party respectively.
+    
+    # Upload the clean guest data
     pipeline_upload.add_upload_data(file=os.path.join(data_dir, "breast_hetero_guest.csv"),
                                     table_name=dense_data["name"],             # table name
                                     namespace=dense_data["namespace"],         # namespace
                                     head=1, partition=partition)               # data info
-
-    if rogue_filename is None: rogue_filename = ""
-
+    
+    # Upload the rogue data
     pipeline_upload.add_upload_data(file=os.path.join(data_dir, rogue_filename),
                                     table_name="breast_hetero_guest_rogue",
                                     namespace=dense_data["namespace"],
                                     head=1, partition=partition)
 
+    # Upload the host data
     pipeline_upload.add_upload_data(file=os.path.join(data_dir, "breast_hetero_host.csv"),
                                     table_name=tag_data["name"],
                                     namespace=tag_data["namespace"],
                                     head=1, partition=partition)
 
-    # upload data
+    # Upload data
     pipeline_upload.upload(work_mode=work_mode, backend=backend, drop=1)
 
 
