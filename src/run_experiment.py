@@ -58,10 +58,10 @@ def run_experiment(poison_percentage: float, base_dir: str, data_dir: str, confi
                  data_dir=data_dir)
 
 
-def run_experiments(percentages: np.ndarray): 
+def run_experiments(percentages: np.ndarray, base_dir: str, data_dir: str, config_file: str, rnd_seed: int): 
     # Loop over a different set of poison intensities
     for percentage in percentages:
-        run_experiment(percentage, BASE_DIR, data_dir, config, SEED)
+        run_experiment(percentage, base_dir, data_dir, config_file, rnd_seed)
 
 
 if __name__ == "__main__":
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument("--poison-percentage", "-p", type=float, help="poison percentage to run the experiment with")
 
     # Retrieve the configuration file path
-    config = os.path.join(BACKDOOR_ATTACK_DIR, "config.yaml")
+    config = os.path.join(BACKDOOR_ATTACK_DIR, "src", "config.yaml")
 
     # Retrieve the data directory in which we save the predictions
     data_dir = os.path.join(BACKDOOR_ATTACK_DIR, "data")
@@ -79,4 +79,5 @@ if __name__ == "__main__":
     if args.poison_percentage is not None:
         run_experiment(args.poison_percentage, BASE_DIR, data_dir, config, SEED)
     else:
-        run_experiments(np.linspace(0.05, 1, 20))
+        percentages = np.linspace(0.05, 1, 20)
+        run_experiments(percentages, BASE_DIR, data_dir, config, SEED)
