@@ -61,6 +61,20 @@ flow init --ip 127.0.0.1 --port 9380
 pipeline init --ip 127.0.0.1 --port 9380
 ```
 
+## Usage
+
+In order to run a single experiment you can run the `run_experiment.py` script, specifying the poison percentage with the `--poison-percentage` option.
+
+```bash
+python src/run_experiment.py --poison-percentage 0.5
+```
+
+To run multiple experiments and reproduce the results shown in the [report](report/FATE_attack.pdf) you can simply run the `run_experiment.py` script without any argument.
+
+```bash
+python src/run_experiment.py
+```
+
 ## Authors
 
 - [Andrea Gasparini](https://github.com/andrea-gasparini)
