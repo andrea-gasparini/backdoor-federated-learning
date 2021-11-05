@@ -3,6 +3,8 @@
 This repository hosts the project on the backdoor attack in a Federated learning setting using the [FATE framework](https://github.com/FederatedAI/FATE).
 This project has been developed during the A.Y. 2021-2022 for the [Advanced Topics in Security and Privacy](https://gitlab.com/atsp2021) course @ University of Groningen.
 
+The details about our work and the obtained results can be found inside the [report](report/FATE_attack.pdf).
+
 ## Installation
 
 First things first, clone this repository and then move into it.
