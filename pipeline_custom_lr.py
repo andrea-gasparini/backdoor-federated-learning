@@ -153,10 +153,6 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
     
     # Compute the poisoning percentage
     poisoning_percentage = len(poisoned_ids) / df.shape[0]
-     
-    # Keep track of the results so far
-    with open("results.txt", "a+") as f:
-      f.write(f"{poisoning_percentage},{success_rate}\n")
 
     # initiate predict pipeline
     predict_pipeline = PipeLine()
@@ -186,6 +182,16 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
 
     # rogue data predict
     pipeline.deploy_component([dataio_0, intersection_0, hetero_lr_0])
+
+    # Obtain the clean evaluation summary
+    clean_summary = predict_pipeline.get_component("evaluation_clean").get_summary()
+
+    # Extract the AUC
+    clean_auc = clean_summary['hetero_lr_0']['predict']['auc']
+
+    # Keep track of the results so far
+    with open("results.txt", "a+") as f:
+      f.write(f"{poisoning_percentage},{success_rate},{clean_auc}\n")
 
     # initiate predict pipeline
     predict_rogue_pipeline = PipeLine()
