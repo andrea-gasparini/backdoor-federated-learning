@@ -14,7 +14,10 @@
 #  limitations under the License.
 #
 
+import os
+import pandas as pd
 
+from typing import List
 from pipeline.backend.config import Backend, WorkMode
 from pipeline.backend.pipeline import PipeLine
 from pipeline.component import DataIO
@@ -25,13 +28,12 @@ from pipeline.component import Reader
 from pipeline.interface import Data
 from pipeline.runtime.entity import JobParameters
 from pipeline.utils.tools import load_job_config
-import os
-import pandas as pd
 
-def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
+DATA_DIR = "./"
+
+def main(data_dir: str, config: str="./config.yaml", namespace: str="", poisoned_ids: List[int]=[]):
     # obtain config
-    if isinstance(config, str):
-        config = load_job_config(config)
+    if isinstance(config, str): config = load_job_config(config)
     # parties config
     parties = config.parties
     guest = parties.guest[0]
@@ -143,10 +145,11 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
     # Compute the Attack Success rate
     # First we download the predictions
     train_job_id = pipeline.get_train_job_id()
-    os.system(f"flow component output-data -j {train_job_id} -r guest -p 10000 -cpn hetero_lr_0 --output-path ./")
+    os.system(f"flow component output-data -j {train_job_id} -r guest -p 10000 -cpn hetero_lr_0 --output-path {data_dir}")
     
     # Load in the data
-    df = pd.read_csv(f"job_{train_job_id}_hetero_lr_0_guest_10000_output_data/data.csv", index_col=False)
+    predictions_dir = os.path.join(data_dir, f"job_{train_job_id}_hetero_lr_0_guest_10000_output_data")
+    df = pd.read_csv(os.path.join(predictions_dir, "data.csv"), index_col=False)
   
     # compute the success rate
     success_rate = (df[df['id'].isin(poisoned_ids)]['predict_result'] == 1).mean()
@@ -190,7 +193,7 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
     clean_auc = clean_summary['hetero_lr_0']['predict']['auc']
 
     # Keep track of the results so far
-    with open("results.txt", "a+") as f:
+    with open(os.path.join(data_dir, "results.txt"), "a+") as f:
       f.write(f"{poisoning_percentage},{success_rate},{clean_auc}\n")
 
     # initiate predict pipeline
@@ -218,4 +221,4 @@ def main(config="../../config.yaml", namespace="", poisoned_ids=[]):
 
 
 if __name__ == "__main__":
-    main()
+    main(data_dir=DATA_DIR)

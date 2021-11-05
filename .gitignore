@@ -1,2 +1,6 @@
 __pycache__
 .vscode
+
+data/*
+!data/.gitkeep
+!data/results.txt
