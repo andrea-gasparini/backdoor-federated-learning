@@ -12,7 +12,7 @@ git clone https://gitlab.com/atsp2021/backdoor-federated-learning.git
 cd backdoor-federated-learning
 ```
 
-In order to slightly reduce the possibility of encountering problems we are going to install FATE using Docker, as suggested in the [FATE Stand-alone Deployment Guide](https://github.com/FederatedAI/FATE/blob/master/standalone-deploy/README.md).
+In order to slightly reduce the possibility of encountering problems we are going to install FATE using Docker. So be sure to have [Docker installed](https://docs.docker.com/get-docker/) and to run the following docker commands as a root user (or to follow the [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) guide).
 
 We suggest to use FATE version `1.6.1`, for which we provide the following mirror download.
 
@@ -28,7 +28,6 @@ wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/docker_standalon
 ```
 
 Once we have the docker archive file we can proceed with the actual installation of the docker image.
-Note: Before running the following docker commands be sure to be a root user or to follow [this guide](https://docs.docker.com/engine/install/linux-postinstall/) beforehand.
 
 ```bash
 tar -xzvf docker_standalone_fate_1.6.1.tar.gz
@@ -55,9 +54,10 @@ To conveniently interact with FATE, it is recommended to also install [FATE-Clie
 pip install fate-client fate-test
 ```
 
-And, in order to setup Pipeline FATE jobs, to also provide server ip/port information of deployed FATE-Flow.
+And, in order to setup Pipeline FATE jobs, initialize FATE-Flow CLI providing server ip/port information of deployed FATE-Flow.
 
 ```bash
+flow init --ip 127.0.0.1 --port 9380
 pipeline init --ip 127.0.0.1 --port 9380
 ```
 
