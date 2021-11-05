@@ -19,16 +19,21 @@ Note: This option could take a lot of time (download is from China), so this is 
 wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/docker_standalone_fate_${version}.tar.gz
 ```
 
-Once we have the docker archive file we can proceed with the actual installation.
-Note: Before running the following commands be sure to be a root user or to follow [this guide](https://docs.docker.com/engine/install/linux-postinstall/) beforehand.
+Once we have the docker archive file we can proceed with the actual installation of the docker image.
+Note: Before running the following docker commands be sure to be a root user or to follow [this guide](https://docs.docker.com/engine/install/linux-postinstall/) beforehand.
 
 ```bash
-tar -xzvf docker_standalone_fate_${version}.tar.gz
-cd docker_standalone_fate_${version}
-bash install_standalone_docker.sh
+tar -xzvf docker_standalone_fate_1.6.1.tar.gz
+docker load < docker_standalone_fate_1.6.1/fate.tar
 ```
 
-Let's create a new shell to interact with the Docker container and the FATE environment.
+And run a new docker container with the FATE image.
+
+```bash
+docker run -d --name fate -p 8080:8080 fate:1.6.1
+```
+
+Now create a new shell to interact with the Docker container and the FATE environment.
 
 ```bash
 CONTAINER_ID=`docker ps -aqf "name=fate"`
@@ -41,21 +46,11 @@ To conveniently interact with FATE, it is recommended to also install [FATE-Clie
 pip install fate-client fate-test
 ```
 
-## Setup a Pipeline FATE job
-
-Provide server ip/port information of deployed FATE-Flow.
+And, in order to setup Pipeline FATE jobs, to also provide server ip/port information of deployed FATE-Flow.
 
 ```bash
 pipeline init --ip 127.0.0.1 --port 9380
 ```
-
-Upload some data with FATE-Pipeline.
-
-```bash
-python examples/pipeline/demo/pipeline-upload.py -b /fate
-```
-
-More details can be found [here](https://github.com/FederatedAI/FATE/blob/master/examples/pipeline/README.rst).
 
 ## Bind host directories with the Docker container
 
