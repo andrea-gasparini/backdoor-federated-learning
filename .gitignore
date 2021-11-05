@@ -1,6 +1,8 @@
 __pycache__
 .vscode
 
+docker_standalone_fate_*
+
 data/*
 !data/.gitkeep
 !data/results.txt
