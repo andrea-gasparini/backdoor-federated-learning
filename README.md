@@ -5,6 +5,13 @@ This project has been developed during the A.Y. 2021-2022 for the [Advanced Topi
 
 ## Installation
 
+First things first, clone this repository and then move into it.
+
+```bash
+git clone https://gitlab.com/atsp2021/backdoor-federated-learning.git
+cd backdoor-federated-learning
+```
+
 In order to slightly reduce the possibility of encountering problems we are going to install FATE using Docker, as suggested in the [FATE Stand-alone Deployment Guide](https://github.com/FederatedAI/FATE/blob/master/standalone-deploy/README.md).
 
 We suggest to use FATE version `1.6.1`, for which we provide the following mirror download.
@@ -28,10 +35,11 @@ tar -xzvf docker_standalone_fate_1.6.1.tar.gz
 docker load < docker_standalone_fate_1.6.1/fate.tar
 ```
 
-And run a new docker container with the FATE image.
+And run a new docker container with the FATE image. The current directory is going to be binded to `/fate/backdoor-attack` inside the container, so be sure that `$(pwd)` corresponds to the root of our repository.
 
 ```bash
-docker run -d --name fate -p 8080:8080 fate:1.6.1
+docker run -d --name fate -p 8080:8080 \
+--mount type=bind,source="$(pwd),target=/fate/backdoor-attack" fate:1.6.1
 ```
 
 Now create a new shell to interact with the Docker container and the FATE environment.
@@ -51,14 +59,6 @@ And, in order to setup Pipeline FATE jobs, to also provide server ip/port inform
 
 ```bash
 pipeline init --ip 127.0.0.1 --port 9380
-```
-
-## Bind host directories with the Docker container
-
-Move to the root directory of the [FATE repository](https://github.com/FederatedAI/FATE) and run the following command in order to bind the directories `/examples` and `/python` to the respective Docker container ones.
-
-```bash
-docker run -p 8080:8080 -d --name fate --mount type=bind,source="$(pwd)/examples,target=/fate/examples" --mount type=bind,source="$(pwd)/python,target=/fate/python" fate:1.6.1
 ```
 
 ## Authors
