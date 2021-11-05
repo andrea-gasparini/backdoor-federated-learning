@@ -1,6 +1,7 @@
-# FATE_attack
+# Backdoor Federated Learning
 
-This repository hosts the project on the Backdoor Federated Learning paper on the FATE network.
+This repository hosts the project on the backdoor attack in a Federated learning setting using the [FATE framework](https://github.com/FederatedAI/FATE).
+This project has been developed during the A.Y. 2021-2022 for the [Advanced Topics in Security and Privacy](https://gitlab.com/atsp2021) course @ University of Groningen.
 
 ## Installation
 
@@ -59,3 +60,9 @@ Move to the root directory of the [FATE repository](https://github.com/Federated
 ```bash
 docker run -p 8080:8080 -d --name fate --mount type=bind,source="$(pwd)/examples,target=/fate/examples" --mount type=bind,source="$(pwd)/python,target=/fate/python" fate:1.6.1
 ```
+
+## Authors
+
+- [Andrea Gasparini](https://github.com/andrea-gasparini)
+- [Arjan Tilstra](https://github.com/ArjanTilstra)
+- [Gerrit Luimstra](https://github.com/GerritLuimstra)
