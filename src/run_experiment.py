@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument("--poison-percentage", "-p", type=float, help="poison percentage to run the experiment with")
 
     # Retrieve the configuration file path
-    config = os.path.join(BACKDOOR_ATTACK_DIR, "config.yaml")
+    config = os.path.join(BACKDOOR_ATTACK_DIR, "src", "config.yaml")
 
     # Retrieve the data directory in which we save the predictions
     data_dir = os.path.join(BACKDOOR_ATTACK_DIR, "data")
