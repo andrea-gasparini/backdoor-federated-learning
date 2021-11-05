@@ -8,7 +8,7 @@ This project has been developed during the A.Y. 2021-2022 for the [Advanced Topi
 First things first, clone this repository and then move into it.
 
 ```bash
-git clone https://gitlab.com/atsp2021/backdoor-federated-learning.git
+git clone https://gitlab.com/atsp2021/backdoor-federated-learning.git && \
 cd backdoor-federated-learning
 ```
 
