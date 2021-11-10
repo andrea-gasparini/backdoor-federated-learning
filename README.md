@@ -3,7 +3,7 @@
 This repository hosts the project on the backdoor attack in a Federated learning setting using the [FATE framework](https://github.com/FederatedAI/FATE).
 This project has been developed during the A.Y. 2021-2022 for the [Advanced Topics in Security and Privacy](https://gitlab.com/atsp2021) course @ University of Groningen.
 
-The details about our work and the obtained results can be found inside the [report](report/FATE_attack.pdf).
+The details about our work and the obtained results can be found inside the [report](report/report.pdf).
 
 ## Installation
 
@@ -73,7 +73,7 @@ In order to run a single experiment you can execute the `run_experiment.py` scri
 python src/run_experiment.py --poison-percentage 0.5
 ```
 
-To run multiple experiments and reproduce the results shown in the [report](report/FATE_attack.pdf) you can simply execute the `run_experiment.py` script without any argument.
+To run multiple experiments and reproduce the results shown in the [report](report/report.pdf) you can simply execute the `run_experiment.py` script without any argument.
 
 ```bash
 python src/run_experiment.py
