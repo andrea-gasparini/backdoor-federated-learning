@@ -10,7 +10,7 @@ The details about our work and the obtained results can be found inside the [rep
 First things first, clone this repository and then move into it.
 
 ```bash
-git clone https://gitlab.com/atsp2021/backdoor-federated-learning.git && \
+git clone https://github.com/andrea-gasparini/backdoor-federated-learning.git && \
 cd backdoor-federated-learning
 ```
 
